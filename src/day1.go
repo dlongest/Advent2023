@@ -46,7 +46,7 @@ func FindFirstNumberIn(s string) (value int) {
 }
 
 func FindLastNumberIn(s string) (value int) {
-	for i, _ := range s {
+	for i := range s {
 		adjustedIndex := len(s) - i - 1
 		c := rune(s[adjustedIndex])
 		if unicode.IsDigit(c) {
