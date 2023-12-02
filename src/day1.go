@@ -14,7 +14,7 @@ type Day1 struct {
 func (d Day1) RunA() {
 	fmt.Println("Running Day 1 A")
 
-	data := ReadLines("Data/day1.txt")
+	data := ReadLines("../Data/day1.txt")
 
 	sum := 0
 	for _, s := range data {
@@ -60,7 +60,7 @@ func FindLastNumberIn(s string) (value int) {
 func (d Day1) RunB() {
 	fmt.Println("Running Day 1 B")
 
-	data := ReadLines("Data/day1.txt")
+	data := ReadLines("../Data/day1.txt")
 
 	parser := NewDigitParser()
 	sum := 0
