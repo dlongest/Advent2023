@@ -32,3 +32,23 @@ func ReadLines(filePath string) []string {
 
 	return lines
 }
+
+func Minimum(a, b int) int {
+	if a < b {
+		return a
+	}
+
+	return b
+}
+
+func Maximum(a, b int) int {
+	if a > b {
+		return a
+	}
+
+	return b
+}
+
+func IsIntegral(val float64) bool {
+	return val == float64(int(val))
+}

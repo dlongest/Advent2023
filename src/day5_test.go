@@ -214,3 +214,104 @@ func TestCategoryRangeSetContains(t *testing.T) {
 		t.Error("Source 79 should have mapped to destination 81")
 	}
 }
+
+func TestNewAlmanacWithSeedRanges(t *testing.T) {
+	lines := ReadLines("../Data/day5-example.txt")
+
+	sut, err := NewAlmanacWithSeedRanges(lines)
+
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	if len(sut.seeds) != 27 {
+		t.Error("Wrong number of seeds to evaluate: Got ", len(sut.seeds))
+	}
+}
+
+func TestRangeCombine(t *testing.T) {
+
+	tempHumidityRangeSet := NewCategoryRangeSet("temperature-humidity")
+	tempHumidityRangeSet.AddNewRange(0, 69, 1)
+	tempHumidityRangeSet.AddNewRange(1, 0, 69)
+
+	humidityLocationRangeSet := NewCategoryRangeSet("humidity-location")
+	humidityLocationRangeSet.AddNewRange(60, 56, 37)
+	humidityLocationRangeSet.AddNewRange(56, 93, 4)
+
+}
+
+func TestGardenRangeDestinationFor(t *testing.T) {
+
+	sut := NewGardenRange(0, 15, 37)
+
+	if sut.DestinationFor(15) != 0 {
+		t.Error("Source value 15 not correctly mapped to expected destination value 0")
+	}
+
+	if sut.DestinationFor(14) != 14 {
+		t.Error("Source value 14 not correctly mapped to expected destination value 14")
+	}
+
+	if sut.DestinationFor(51) != 36 {
+		t.Error("Source value 51 not correctly mapped to expected destination value 36")
+	}
+
+	if sut.DestinationFor(52) != 52 {
+		t.Error("Source value 52 not correctly mapped to expected destination value 52")
+	}
+}
+
+func TestGardenRangeSourceFor(t *testing.T) {
+
+	sut := NewGardenRange(0, 15, 37)
+
+	if sut.SourceFor(0) != 15 {
+		t.Error("Destination value 0 not correctly mapped to expected source value 15")
+	}
+
+	if sut.SourceFor(14) != 29 {
+		t.Error("Destination value 14 not correctly mapped to expected source value 29")
+	}
+
+	if sut.SourceFor(36) != 51 {
+		t.Error("Destination value 36 not correctly mapped to expected source value 51")
+	}
+
+	if sut.SourceFor(37) != 37 {
+		t.Error("Destination value 37 not correctly mapped to expected source value 37")
+	}
+}
+
+func TestGardenRangeMerge(t *testing.T) {
+
+	prior := NewGardenRange(50, 98, 2)
+	next := NewGardenRange(0, 15, 37)
+
+	expectedRange := NewGardenRange(35, 98, 2)
+
+	actualRange, merged := Merge(prior, next)
+
+	if !merged {
+		t.Error("Should have been merged and wasn't")
+		return
+	}
+
+	if expectedRange != actualRange {
+		t.Errorf("Expected range %v does not match actual range %v", expectedRange, actualRange)
+	}
+}
+
+func TestGardenRangeMergeNoOverlap(t *testing.T) {
+
+	prior := NewGardenRange(50, 98, 2)
+	next := NewGardenRange(37, 52, 2)
+
+	_, merged := Merge(prior, next)
+
+	if merged {
+		t.Error("Should not have been merged because ranges are disjoint")
+		return
+	}
+}
