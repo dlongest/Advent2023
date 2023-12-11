@@ -60,3 +60,28 @@ func Keys[M ~map[K]V, K comparable, V any](m M) []K {
 	}
 	return r
 }
+
+func iabs(a int) int {
+
+	if a < 0 {
+		return -a
+	}
+
+	return a
+}
+
+func imax(a, b int) int {
+	if a < b {
+		return b
+	}
+
+	return a
+}
+
+func imin(a, b int) int {
+	if a > b {
+		return b
+	}
+
+	return a
+}

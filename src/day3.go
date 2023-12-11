@@ -73,14 +73,6 @@ func NewGrid(lines []string) *Grid {
 		grid.grid = append(grid.grid, []rune(row))
 	}
 
-	// for rowIndex, _ := range lines {
-	// 	currentRow = make([]rune, grid.rowCount)
-	// 	for colIndex, value := range lines[rowIndex] {
-	// 		currentRow[colIndex] = value
-	// 	}
-	// 	grid.grid = append(grid.grid, currentRow)
-	// }
-
 	return grid
 }
 
