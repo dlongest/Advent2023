@@ -2,5 +2,5 @@ package main
 
 func main() {
 
-	Day7RunB()
+	Day8RunB()
 }
